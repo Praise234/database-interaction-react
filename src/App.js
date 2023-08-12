@@ -36,9 +36,16 @@ function App() {
 
   useEffect(() => {
     fetchMoviesHandler();
+    // const timeInterval = setInterval(() => {
+    //   fetchMoviesHandler();
+    // }, 4000);
+
+    // return () => {
+    //   clearInterval(timeInterval);
+    // }
   }, [fetchMoviesHandler]);
 
-  async function addMovieHandler(movie) {
+  async function addMovieHandler(movie, titleRef, openingTextRef, releaseDateRef) {
     try {
 
       const response = await fetch('https://react-http-218f6-default-rtdb.firebaseio.com/movies.json', {
@@ -51,13 +58,18 @@ function App() {
 
     // const data = await response.json();
     if(response.ok){
+      titleRef.current.value = "";
+      openingTextRef.current.value = "";
+      releaseDateRef.current.value = "";
       fetchMoviesHandler();
+      return true;
     }else{
-      throw new Error('Something went wrong!');
+      throw new Error(response);
     }
       
     } catch (error) {
-      setError(error);
+      console.log(error.status);
+      return false;
     }
   }
 

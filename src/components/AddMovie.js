@@ -18,10 +18,8 @@ function AddMovie(props) {
       releaseDate: releaseDateRef.current.value,
     };
 
-    props.onAddMovie(movie);
-    titleRef.current.value = "";
-    openingTextRef.current.value = "";
-    releaseDateRef.current.value = "";
+    props.onAddMovie(movie, titleRef, openingTextRef, releaseDateRef);
+   
 
   }
 
